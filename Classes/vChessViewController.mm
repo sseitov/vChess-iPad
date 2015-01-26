@@ -19,7 +19,23 @@
 #import "TurnCell.h"
 #import "ChessGame.h"
 
-@interface vChessViewController (hidden)
+@interface vChessViewController () {
+		
+	Desk	*desk;
+	NSMutableArray *turnViews;
+	TurnCell *currentCell;
+	int cellIndex;
+	
+	NSTimer *turnTimer;
+	TURN_TIME turnTime;
+	UILabel *timeLabel;
+	UIFont *whiteNameFont;
+	UIFont *blackNameFont;
+	
+	id<XMPPUser> opponent;
+	unsigned char opColor;
+	NSString *onlineGameId;
+}
 
 - (bool)nextTurn;
 - (bool)previouseTurn;
@@ -28,20 +44,24 @@
 - (NSString*)timeText;
 - (void)finishGameWhite:(NSString*)white black:(NSString*)black;
 
+
+@property (nonatomic, strong) UIPopoverController *managerPopover;
+@property (nonatomic, strong) UIPopoverController *loginPopover;
+
+- (IBAction)loadGame;
+- (IBAction)playOffline;
+- (IBAction)enterCommunity;
+- (IBAction)quitCommunity;
+
 @end
 
 @implementation vChessViewController
 
-@synthesize managerPopover;
-@synthesize loginPopover;
-
-- (void)didReceiveMemoryWarning {
-	
-    [super didReceiveMemoryWarning];	
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+	
+	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"marble.png"]];
 	
 	panel.bInvert = YES;
 	
@@ -105,10 +125,9 @@
 
 #pragma mark - Game Manager
 
-- (IBAction)navigate:(UISegmentedControl*)control {
-	
-	int index = control.selectedSegmentIndex;
-	switch (index) {
+- (IBAction)navigate:(UISegmentedControl*)control
+{	
+	switch (control.selectedSegmentIndex) {
 		case PLAY_START:
 			desk.playMode = PLAY_BACKWARD;
 			[self handlePlayPreviouse:NULL];
@@ -152,23 +171,23 @@
 - (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
 	
 	[popoverController dismissPopoverAnimated:YES];
-	if (popoverController == managerPopover) {
-		managerPopover = nil;
+	if (popoverController == _managerPopover) {
+		_managerPopover = nil;
 	} else {
-		loginPopover = nil;
+		_loginPopover = nil;
 	}
 	return YES;
 }
 
 - (IBAction)loadGame {
 	
-	if (managerPopover) {
+	if (_managerPopover) {
 		return;
 	}
 	UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:[[GameManager alloc] init] ];
-	managerPopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
-	managerPopover.delegate = self;
-	[managerPopover presentPopoverFromBarButtonItem:loadButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+	_managerPopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
+	_managerPopover.delegate = self;
+	[_managerPopover presentPopoverFromBarButtonItem:loadButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void)handleLoadGame:(NSNotification*)note {
@@ -182,8 +201,8 @@
 												  [chessGame.white UTF8String],
 												  [chessGame.black UTF8String]);
 			printf("SUCCESS\n");
-			[managerPopover dismissPopoverAnimated:YES];
-			managerPopover = nil;
+			[_managerPopover dismissPopoverAnimated:YES];
+			_managerPopover = nil;
 			[self startShowGame:game];
 		} else {
 			UIAlertView *alert = [[UIAlertView alloc]
@@ -259,9 +278,9 @@
 
 - (IBAction)playOffline {
 	
-	if (managerPopover != nil) {
-		[managerPopover dismissPopoverAnimated:YES];
-		managerPopover = nil;
+	if (_managerPopover != nil) {
+		[_managerPopover dismissPopoverAnimated:YES];
+		_managerPopover = nil;
 	} 
 	
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Play Offline"
@@ -327,7 +346,7 @@
 - (void)handleTurn:(NSNotification*)note {
 	
 	TurnView *turnView;
-	int num = [turnViews count] + 1;
+	int num = (int)[turnViews count] + 1;
 	if (timeLabel == whiteTime) {
 		turnView = [[TurnView alloc] initWithFrame:CGRectMake(0, gameTable.contentSize.height, gameTable.bounds.size.width, TURNVIEW_HEIGHT) number:num];
 		gameTable.contentSize = CGSizeMake(gameTable.bounds.size.width, gameTable.contentSize.height+TURNVIEW_HEIGHT+2);
@@ -456,30 +475,30 @@
 
 - (IBAction)enterCommunity {
 	
-	if (loginPopover) {
+	if (_loginPopover) {
 		return;
 	}
 	UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:[[LoginController alloc] initWithNibName:@"LoginController" bundle:nil] ];
-	loginPopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
-	loginPopover.delegate = self;
-	loginPopover.popoverContentSize = CGSizeMake(260, 240);
-	[loginPopover presentPopoverFromBarButtonItem:loginButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+	_loginPopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
+	_loginPopover.delegate = self;
+	_loginPopover.popoverContentSize = CGSizeMake(260, 240);
+	[_loginPopover presentPopoverFromBarButtonItem:loginButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void)handleSuccessLogin:(NSNotification*)note {
 	
-	if (loginPopover) {
-		[loginPopover dismissPopoverAnimated:YES];
+	if (_loginPopover) {
+		[_loginPopover dismissPopoverAnimated:YES];
 	}
-	loginPopover = nil;
+	_loginPopover = nil;
 }
 
 - (IBAction)quitCommunity {
 	
-	if (loginPopover) {
-		[loginPopover dismissPopoverAnimated:YES];
+	if (_loginPopover) {
+		[_loginPopover dismissPopoverAnimated:YES];
 	}
-	loginPopover = nil;
+	_loginPopover = nil;
 	[[NSNotificationCenter defaultCenter] postNotificationName:XMPPDisconnectNotification object:self];
 }
 

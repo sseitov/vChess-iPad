@@ -7,7 +7,6 @@
 //
 
 #import "vChessAppDelegate.h"
-//#import "vChessViewController.h"
 #import "Notifications.h"
 #import "StorageManager.h"
 #import "RequestIQ.h"
@@ -35,7 +34,6 @@
 @synthesize xmppCapabilitiesStorage;
 
 @synthesize window = _window;
-//@synthesize viewController = _viewController;
 
 @synthesize xmppRequests;
 
@@ -55,12 +53,7 @@
 	[self setupStream];
 	
 	self.xmppRequests = [[NSMutableDictionary alloc] init];
-/*
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	self.viewController = [[vChessViewController alloc] initWithNibName:@"vChessViewController" bundle:nil];
-	self.window.rootViewController = self.viewController;
-
-    [self.window makeKeyAndVisible];*/
+	
 	return YES;
 }
 
@@ -195,8 +188,7 @@
 	[xmppRoster addDelegate:self delegateQueue:dispatch_get_main_queue()];
 	
 	// You may need to alter these settings depending on the server you're connecting to
-	allowSelfSignedCertificates = NO;
-	allowSSLHostNameMismatch = NO;
+	customCertEvaluation = YES;
 }
 
 - (void)teardownStream
@@ -274,7 +266,7 @@
 	password = myPassword;
 	
 	NSError *error = nil;
-	if (![xmppStream connect:&error])
+	if (![xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:&error])
 	{
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error connecting"
 		                                                    message:@"See console for error details."
@@ -305,52 +297,37 @@
 
 - (void)xmppStream:(XMPPStream *)sender willSecureWithSettings:(NSMutableDictionary *)settings
 {
-	if (allowSelfSignedCertificates)
+	NSString *expectedCertName = [xmppStream.myJID domain];
+	if (expectedCertName)
 	{
-		[settings setObject:[NSNumber numberWithBool:YES] forKey:(NSString *)kCFStreamSSLAllowsAnyRoot];
+		[settings setObject:expectedCertName forKey:(NSString *)kCFStreamSSLPeerName];
 	}
 	
-	if (allowSSLHostNameMismatch)
+	if (customCertEvaluation)
 	{
-		[settings setObject:[NSNull null] forKey:(NSString *)kCFStreamSSLPeerName];
+		[settings setObject:@(YES) forKey:GCDAsyncSocketManuallyEvaluateTrust];
 	}
-	else
-	{
-		// Google does things incorrectly (does not conform to RFC).
-		// Because so many people ask questions about this (assume xmpp framework is broken),
-		// I've explicitly added code that shows how other xmpp clients "do the right thing"
-		// when connecting to a google server (gmail, or google apps for domains).
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveTrust:(SecTrustRef)trust completionHandler:(void (^)(BOOL shouldTrustPeer))completionHandler
+{
+	// The delegate method should likely have code similar to this,
+	// but will presumably perform some extra security code stuff.
+	// For example, allowing a specific self-signed certificate that is known to the app.
+	
+	dispatch_queue_t bgQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+	dispatch_async(bgQueue, ^{
 		
-		NSString *expectedCertName = nil;
+		SecTrustResultType result = kSecTrustResultDeny;
+		OSStatus status = SecTrustEvaluate(trust, &result);
 		
-		NSString *serverDomain = xmppStream.hostName;
-		NSString *virtualDomain = [xmppStream.myJID domain];
-		
-		if ([serverDomain isEqualToString:@"talk.google.com"])
-		{
-			if ([virtualDomain isEqualToString:@"gmail.com"])
-			{
-				expectedCertName = virtualDomain;
-			}
-			else
-			{
-				expectedCertName = serverDomain;
-			}
+		if (status == noErr && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified)) {
+			completionHandler(YES);
 		}
-		else if (serverDomain == nil)
-		{
-			expectedCertName = virtualDomain;
+		else {
+			completionHandler(NO);
 		}
-		else
-		{
-			expectedCertName = serverDomain;
-		}
-		
-		if (expectedCertName)
-		{
-			[settings setObject:expectedCertName forKey:(NSString *)kCFStreamSSLPeerName];
-		}
-	}
+	});
 }
 
 - (void)xmppStreamDidSecure:(XMPPStream *)sender

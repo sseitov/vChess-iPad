@@ -25,10 +25,7 @@
 	XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
 	
 	NSString *password;
-	
-	BOOL allowSelfSignedCertificates;
-	BOOL allowSSLHostNameMismatch;
-	
+	BOOL customCertEvaluation;
 	BOOL isXmppConnected;
 	
 	UIBackgroundTaskIdentifier bgTask;
@@ -44,7 +41,6 @@
 @property (nonatomic, strong, readonly) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
 
 @property (strong, nonatomic) UIWindow *window;
-//@property (strong, nonatomic) vChessViewController *viewController;
 
 @property (strong, nonatomic) NSMutableDictionary *xmppRequests;
 

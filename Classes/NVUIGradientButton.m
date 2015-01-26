@@ -71,11 +71,10 @@
 	
 	// Label
 	_titleLabel = [[UILabel alloc] init];
-	_titleLabel.textAlignment = UITextAlignmentCenter;
-	_titleLabel.lineBreakMode = UILineBreakModeMiddleTruncation;
+	_titleLabel.textAlignment = NSTextAlignmentCenter;
+	_titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
 	_titleLabel.numberOfLines = 0;
 	_titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
-	_titleLabel.minimumFontSize = 12.0;
 	_titleLabel.shadowOffset = CGSizeMake(0, -1);
 	
 	_gradientEnabled = YES;

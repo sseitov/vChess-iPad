@@ -75,7 +75,7 @@
 		}
 		CGRect rect = CGRectMake(0, 5, 48, 30);
 		for (int i=0; i<8; i++) {
-			[[labels objectAtIndex:i] drawInRect:rect withFont:font lineBreakMode:(UILineBreakMode)0 alignment:UITextAlignmentCenter];
+			[[labels objectAtIndex:i] drawInRect:rect withFont:font lineBreakMode:(UILineBreakMode)0 alignment:NSTextAlignmentCenter];
 			rect.origin.x += 48;
 		}
 	} else {
@@ -88,7 +88,7 @@
 
 		CGRect rect = CGRectMake(0, 10, 30, 48);
 		for (int i=0; i<8; i++) {
-			[[labels objectAtIndex:i] drawInRect:rect withFont:font lineBreakMode:(UILineBreakMode)0 alignment:UITextAlignmentCenter];
+			[[labels objectAtIndex:i] drawInRect:rect withFont:font lineBreakMode:(UILineBreakMode)0 alignment:NSTextAlignmentCenter];
 			rect.origin.y += 48;
 		}
 	}

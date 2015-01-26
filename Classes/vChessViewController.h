@@ -31,7 +31,6 @@ struct TURN_TIME {
 
 @interface vChessViewController : UIViewController <UIPopoverControllerDelegate, UIAlertViewDelegate> {
 
-	Desk	*desk;
 	IBOutlet UISegmentedControl *controlButtons;
 	IBOutlet UISegmentedControl *gameFinishButtons;
 	IBOutlet UILabel	*whiteName;
@@ -44,31 +43,10 @@ struct TURN_TIME {
 	IBOutlet UIBarButtonItem *loginButton;
 	IBOutlet UIBarButtonItem *loadButton;
 	IBOutlet UIBarButtonItem *playButton;
-	
-	NSMutableArray *turnViews;
-	TurnCell *currentCell;
-	int cellIndex;
-		
-	NSTimer *turnTimer;
-	TURN_TIME turnTime;
-	UILabel *timeLabel;
-	UIFont *whiteNameFont;
-	UIFont *blackNameFont;
-	
-	id<XMPPUser> opponent;
-	unsigned char opColor;
-	NSString *onlineGameId;
 }
-
-@property (nonatomic, strong, readonly) UIPopoverController *managerPopover;
-@property (nonatomic, strong, readonly) UIPopoverController *loginPopover;
 
 - (IBAction)navigate:(UISegmentedControl*)control;
 - (IBAction)controlGame:(UISegmentedControl*)control;
-- (IBAction)loadGame;
-- (IBAction)playOffline;
-- (IBAction)enterCommunity;
-- (IBAction)quitCommunity;
 
 @end
 
