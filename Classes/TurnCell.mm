@@ -39,7 +39,7 @@
 	}
 	rect.origin.y += 5;
 	[text drawInRect:rect withFont:[UIFont fontWithName:@"Verdana-Bold" size:16]
-	   lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
+	   lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentCenter];
 }
 
 - (void)setSelected:(BOOL)bSelected {

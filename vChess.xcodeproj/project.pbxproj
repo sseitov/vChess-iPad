@@ -16,10 +16,9 @@
 		28D7ACF80DDB3853001CB0EB /* vChessViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* vChessViewController.mm */; };
 		2C1B406E16F32201007651D6 /* vChessModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B406C16F32201007651D6 /* vChessModel.xcdatamodeld */; };
 		2C1B407416F32692007651D6 /* StorageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B407316F32692007651D6 /* StorageManager.mm */; };
+		2C28D64E1A7641C0005714DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C28D64D1A7641C0005714DF /* Images.xcassets */; };
+		2C28D6501A764D82005714DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C28D64F1A764D82005714DF /* Main.storyboard */; };
 		2C5DE0A716EF9FB700FCB06F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DE0A616EF9FB700FCB06F /* MBProgressHUD.m */; };
-		2C760B64170AA5F500773D85 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C760B62170AA5F500773D85 /* Default-Landscape@2x~ipad.png */; };
-		2C760B65170AA5F500773D85 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C760B63170AA5F500773D85 /* Default-Landscape~ipad.png */; };
-		2C760B67170AA77E00773D85 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C760B66170AA77E00773D85 /* Icon-72@2x.png */; };
 		2C810C7016EF1BD700FD179E /* Notifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C810C6F16EF1BD700FD179E /* Notifications.m */; };
 		2C810C7316EF6C8F00FD179E /* ChessComLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C810C7216EF6C8F00FD179E /* ChessComLoader.mm */; };
 		2C9A9D1A170A0F7700E3C3DC /* Masters.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 2C9A9D19170A0F7700E3C3DC /* Masters.sqlite */; };
@@ -123,7 +122,6 @@
 		DA418EB212F43EBD00E8181E /* CommunityView.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA418EB112F43EBD00E8181E /* CommunityView.mm */; };
 		DA418ECF12F44EE400E8181E /* LoginController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA418ECE12F44EE400E8181E /* LoginController.mm */; };
 		DA418ED112F44F0800E8181E /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA418ED012F44F0800E8181E /* LoginController.xib */; };
-		DA4DDC0712A26D7A0003CB79 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4DDC0612A26D7A0003CB79 /* Icon-72.png */; };
 		DA4DDC2612A26ED90003CB79 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DDC2512A26ED90003CB79 /* libsqlite3.dylib */; };
 		DA4DDC2812A26EEB0003CB79 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DDC2712A26EEB0003CB79 /* QuartzCore.framework */; };
 		DA4DDC5B12A273A40003CB79 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4DDC5A12A273A40003CB79 /* Background.png */; };
@@ -180,19 +178,18 @@
 		1D6058910D05DD3D006BFB54 /* vChess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vChess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E5210DE3E06400AC0155 /* vChessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = vChessViewController.xib; path = ../vChessViewController.xib; sourceTree = "<group>"; };
+		2899E5210DE3E06400AC0155 /* vChessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = vChessViewController.xib; sourceTree = "<group>"; };
 		28D7ACF60DDB3853001CB0EB /* vChessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vChessViewController.h; sourceTree = "<group>"; };
 		28D7ACF70DDB3853001CB0EB /* vChessViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = vChessViewController.mm; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2C1B406D16F32201007651D6 /* vChessModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = vChessModel.xcdatamodel; sourceTree = "<group>"; };
 		2C1B407216F32692007651D6 /* StorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageManager.h; sourceTree = "<group>"; };
 		2C1B407316F32692007651D6 /* StorageManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StorageManager.mm; sourceTree = "<group>"; };
+		2C28D64D1A7641C0005714DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = vChess/Images.xcassets; sourceTree = "<group>"; };
+		2C28D64F1A764D82005714DF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2C599F5B16DFD49F000A1668 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		2C5DE0A516EF9FB600FCB06F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		2C5DE0A616EF9FB700FCB06F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		2C760B62170AA5F500773D85 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "Images/Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
-		2C760B63170AA5F500773D85 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Images/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
-		2C760B66170AA77E00773D85 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72@2x.png"; path = "Images/Icon-72@2x.png"; sourceTree = "<group>"; };
 		2C810C6E16EF1BD700FD179E /* Notifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notifications.h; sourceTree = "<group>"; };
 		2C810C6F16EF1BD700FD179E /* Notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notifications.m; sourceTree = "<group>"; };
 		2C810C7116EF6C8F00FD179E /* ChessComLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessComLoader.h; sourceTree = "<group>"; };
@@ -399,7 +396,6 @@
 		DA418ECD12F44EE400E8181E /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		DA418ECE12F44EE400E8181E /* LoginController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoginController.mm; sourceTree = "<group>"; };
 		DA418ED012F44F0800E8181E /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
-		DA4DDC0612A26D7A0003CB79 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Images/Icon-72.png"; sourceTree = "<group>"; };
 		DA4DDC2512A26ED90003CB79 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		DA4DDC2712A26EEB0003CB79 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DA4DDC5A12A273A40003CB79 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Background.png; path = Images/Background.png; sourceTree = "<group>"; };
@@ -456,7 +452,7 @@
 		DAFC8E9E12ABA6170039B4B6 /* GameManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameManager.mm; sourceTree = "<group>"; };
 		DAFC8EA712ABA6800039B4B6 /* MasterLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterLoader.h; sourceTree = "<group>"; };
 		DAFC8EA812ABA6800039B4B6 /* MasterLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MasterLoader.mm; sourceTree = "<group>"; };
-		DAFC8EF712ABB1470039B4B6 /* MasterLoader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MasterLoader.xib; path = ../MasterLoader.xib; sourceTree = "<group>"; };
+		DAFC8EF712ABB1470039B4B6 /* MasterLoader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterLoader.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -495,7 +491,6 @@
 				DA22682012B4E00F00DAFEE4 /* Table */,
 				28D7ACF60DDB3853001CB0EB /* vChessViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* vChessViewController.mm */,
-				2899E5210DE3E06400AC0155 /* vChessViewController.xib */,
 				1D3623250D0F684500981E51 /* vChessAppDelegate.mm */,
 				1D3623240D0F684500981E51 /* vChessAppDelegate.h */,
 				2C810C6E16EF1BD700FD179E /* Notifications.h */,
@@ -541,6 +536,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C28D64F1A764D82005714DF /* Main.storyboard */,
+				DAFC8EF712ABB1470039B4B6 /* MasterLoader.xib */,
+				2899E5210DE3E06400AC0155 /* vChessViewController.xib */,
+				2C28D64D1A7641C0005714DF /* Images.xcassets */,
 				DA4DDC0512A26D6A0003CB79 /* Images */,
 				2C9A9D19170A0F7700E3C3DC /* Masters.sqlite */,
 				2CAF12291709920A00029E6B /* packages.plist */,
@@ -1066,10 +1065,6 @@
 				DA4DDC7912A279EE0003CB79 /* Desk */,
 				DA4DDC5A12A273A40003CB79 /* Background.png */,
 				2CA6E02516E3C1420046E25E /* defaultPerson.png */,
-				2C760B62170AA5F500773D85 /* Default-Landscape@2x~ipad.png */,
-				2C760B63170AA5F500773D85 /* Default-Landscape~ipad.png */,
-				2C760B66170AA77E00773D85 /* Icon-72@2x.png */,
-				DA4DDC0612A26D7A0003CB79 /* Icon-72.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1158,7 +1153,6 @@
 				2C9A9D1C170A1E9500E3C3DC /* NVUIGradientButton.m */,
 				DAFC8EA712ABA6800039B4B6 /* MasterLoader.h */,
 				DAFC8EA812ABA6800039B4B6 /* MasterLoader.mm */,
-				DAFC8EF712ABB1470039B4B6 /* MasterLoader.xib */,
 				DAFC8E9D12ABA6170039B4B6 /* GameManager.h */,
 				DAFC8E9E12ABA6170039B4B6 /* GameManager.mm */,
 				2C810C7116EF6C8F00FD179E /* ChessComLoader.h */,
@@ -1197,8 +1191,13 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "V-Channel";
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 7TSVKXZ79P;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "vChess" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1225,7 +1224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2899E5220DE3E06400AC0155 /* vChessViewController.xib in Resources */,
-				DA4DDC0712A26D7A0003CB79 /* Icon-72.png in Resources */,
 				DA4DDC5B12A273A40003CB79 /* Background.png in Resources */,
 				DA4DDC9612A279EE0003CB79 /* AppTitle.png in Resources */,
 				DA4DDC9712A279EE0003CB79 /* BlackB.png in Resources */,
@@ -1249,8 +1247,10 @@
 				DA4DDCA912A279EE0003CB79 /* SmallWhiteQ.png in Resources */,
 				DA4DDCAA12A279EE0003CB79 /* SmallWhiteR.png in Resources */,
 				DA4DDCAB12A279EE0003CB79 /* WhiteB.png in Resources */,
+				2C28D64E1A7641C0005714DF /* Images.xcassets in Resources */,
 				DA4DDCAC12A279EE0003CB79 /* WhiteCross.png in Resources */,
 				DA4DDCAD12A279EE0003CB79 /* WhiteK.png in Resources */,
+				2C28D6501A764D82005714DF /* Main.storyboard in Resources */,
 				DA4DDCAE12A279EE0003CB79 /* WhiteN.png in Resources */,
 				DA4DDCAF12A279EE0003CB79 /* WhiteP.png in Resources */,
 				DA4DDCB012A279EE0003CB79 /* WhiteQ.png in Resources */,
@@ -1267,9 +1267,6 @@
 				2CA6E02616E3C1420046E25E /* defaultPerson.png in Resources */,
 				2CAF122A1709920A00029E6B /* packages.plist in Resources */,
 				2C9A9D1A170A0F7700E3C3DC /* Masters.sqlite in Resources */,
-				2C760B64170AA5F500773D85 /* Default-Landscape@2x~ipad.png in Resources */,
-				2C760B65170AA5F500773D85 /* Default-Landscape~ipad.png in Resources */,
-				2C760B67170AA77E00773D85 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1394,6 +1391,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sergey Seitov (RXAUVFWR8G)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sergey Seitov (RXAUVFWR8G)";
@@ -1409,8 +1408,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = vChess;
-				PROVISIONING_PROFILE = "54F60A90-7B6A-4F44-8C3D-490EDF9F30D8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "54F60A90-7B6A-4F44-8C3D-490EDF9F30D8";
+				PROVISIONING_PROFILE = "f68f4b38-be95-4f99-92f2-f945cde94926";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "f68f4b38-be95-4f99-92f2-f945cde94926";
 			};
 			name = Debug;
 		};
@@ -1418,9 +1417,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sergey Seitov";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sergey Seitov";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sergey Seitov (7TSVKXZ79P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sergey Seitov (7TSVKXZ79P)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = vChess_Prefix.pch;
@@ -1431,8 +1432,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = vChess;
-				PROVISIONING_PROFILE = "A78DC310-AA32-4191-8516-838AC56B990B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A78DC310-AA32-4191-8516-838AC56B990B";
+				PROVISIONING_PROFILE = "f417524d-3b89-425a-b63c-65137c06b4c5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "f417524d-3b89-425a-b63c-65137c06b4c5";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1440,7 +1441,6 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Sergey Seitov (RXAUVFWR8G)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sergey Seitov (RXAUVFWR8G)";
@@ -1452,10 +1452,11 @@
 					/usr/include/libxml2,
 					/opt/local/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
-				PROVISIONING_PROFILE = "54F60A90-7B6A-4F44-8C3D-490EDF9F30D8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "54F60A90-7B6A-4F44-8C3D-490EDF9F30D8";
+				PROVISIONING_PROFILE = "f68f4b38-be95-4f99-92f2-f945cde94926";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "f68f4b38-be95-4f99-92f2-f945cde94926";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1464,7 +1465,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sergey Seitov";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sergey Seitov";
@@ -1476,11 +1476,11 @@
 					/usr/include/libxml2,
 					/opt/local/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
-				PROVISIONING_PROFILE = "A78DC310-AA32-4191-8516-838AC56B990B";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A78DC310-AA32-4191-8516-838AC56B990B";
+				PROVISIONING_PROFILE = "f417524d-3b89-425a-b63c-65137c06b4c5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "f417524d-3b89-425a-b63c-65137c06b4c5";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

@@ -185,7 +185,7 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
 									  reuseIdentifier:CellIdentifier];
 		cell.textLabel.numberOfLines = 2;
-		cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+		cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
 		cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14];
 		cell.indentationLevel = 1;
 	}

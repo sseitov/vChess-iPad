@@ -7,9 +7,10 @@
 //
 
 #import "vChessAppDelegate.h"
-#import "vChessViewController.h"
+//#import "vChessViewController.h"
 #import "Notifications.h"
 #import "StorageManager.h"
+#import "RequestIQ.h"
 
 @interface vChessAppDelegate()
 
@@ -34,7 +35,7 @@
 @synthesize xmppCapabilitiesStorage;
 
 @synthesize window = _window;
-@synthesize viewController = _viewController;
+//@synthesize viewController = _viewController;
 
 @synthesize xmppRequests;
 
@@ -42,7 +43,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-	srand(time(0));
+	srand((unsigned int)time(0));
 	
 	// StoreManager initialization.
 	[[StorageManager sharedStorageManager] managedObjectContext];
@@ -54,12 +55,12 @@
 	[self setupStream];
 	
 	self.xmppRequests = [[NSMutableDictionary alloc] init];
-
+/*
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.viewController = [[vChessViewController alloc] initWithNibName:@"vChessViewController" bundle:nil];
 	self.window.rootViewController = self.viewController;
 
-    [self.window makeKeyAndVisible];
+    [self.window makeKeyAndVisible];*/
 	return YES;
 }
 
