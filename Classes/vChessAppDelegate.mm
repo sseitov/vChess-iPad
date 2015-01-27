@@ -18,7 +18,6 @@
 
 - (void)goOnline;
 - (void)goOffline;
-- (void)goAway;
 
 @end
 
@@ -43,11 +42,13 @@
     
 	srand((unsigned int)time(0));
 	
+	if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+		[application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+	}
+	
 	// StoreManager initialization.
 	[[StorageManager sharedStorageManager] managedObjectContext];
 	[[StorageManager sharedStorageManager] initUserPackages];
-
-	bgTask = UIBackgroundTaskInvalid;
 	
 	// Setup the XMPP stream
 	[self setupStream];
@@ -62,21 +63,40 @@
 	[self teardownStream];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-	
-	bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
-		[application endBackgroundTask:bgTask];
-		bgTask = UIBackgroundTaskInvalid;
-	}];
-	[self goAway];
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+	if (isXmppConnected) {
+		self.bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+			dispatch_async(dispatch_get_main_queue(), ^()
+						   {
+							   if (self.bgTask != UIBackgroundTaskInvalid)
+							   {
+								   [application endBackgroundTask:self.bgTask];
+								   self.bgTask = UIBackgroundTaskInvalid;
+							   }
+						   });
+		}];
+		
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^()
+					   {
+						   while (self.bgTask != UIBackgroundTaskInvalid) {
+							   sleep(1);
+						   }
+						   
+						   dispatch_async(dispatch_get_main_queue(), ^()
+										  {
+											  if (self.bgTask != UIBackgroundTaskInvalid)
+											  {
+												  [application endBackgroundTask:self.bgTask];
+												  self.bgTask = UIBackgroundTaskInvalid;
+											  }
+										  });
+					   });
+	}
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
+- (void)applicationWillEnterForeground:(UIApplication *)application
 {
-	if (bgTask != UIBackgroundTaskInvalid) {
-		[application endBackgroundTask:bgTask];
-		bgTask = UIBackgroundTaskInvalid;
-	}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -236,12 +256,6 @@
 - (void)goOffline
 {
 	XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
-	[[self xmppStream] sendElement:presence];
-}
-
-- (void)goAway
-{
-	XMPPPresence *presence = [XMPPPresence presenceWithType:@"away"];
 	[[self xmppStream] sendElement:presence];
 }
 
@@ -409,8 +423,10 @@
 		{
 			// We are not active, so use a local notification instead
 			UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-			localNotification.alertAction = @"Ok";
-			localNotification.alertBody = [NSString stringWithFormat:@"From: %@\n\n%@",displayName,body];
+			localNotification.timeZone  = [NSTimeZone systemTimeZone];
+			localNotification.alertAction = @"vChess for iPad";
+			localNotification.soundName = UILocalNotificationDefaultSoundName;
+			localNotification.alertBody = [NSString stringWithFormat:@"Message: %@, From: %@", body, displayName];
 			
 			[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 		}

@@ -27,8 +27,6 @@
 	NSString *password;
 	BOOL customCertEvaluation;
 	BOOL isXmppConnected;
-	
-	UIBackgroundTaskIdentifier bgTask;
 }
 
 @property (nonatomic, strong, readonly) XMPPStream *xmppStream;
@@ -43,6 +41,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) NSMutableDictionary *xmppRequests;
+@property (assign, nonatomic) UIBackgroundTaskIdentifier bgTask;
 
 - (NSManagedObjectContext *)managedObjectContext_roster;
 - (NSManagedObjectContext *)managedObjectContext_capabilities;

@@ -669,7 +669,7 @@
 	return [mGames count];
 }
 
-- (void)configureCell:(UITableViewCell*)cell forIndex:(int)index {
+- (void)configureCell:(UITableViewCell*)cell forIndex:(NSInteger)index {
 	
 	NSDictionary *game = [mGames objectAtIndex:index];		
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 220, 20)];
