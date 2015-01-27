@@ -18,8 +18,9 @@
 #import "CommunityView.h"
 #import "TurnCell.h"
 #import "ChessGame.h"
+#import "MessageController.h"
 
-@interface vChessViewController () {
+@interface vChessViewController () <CommutityDelegate> {
 		
 	Desk	*desk;
 	NSMutableArray *turnViews;
@@ -44,14 +45,17 @@
 - (NSString*)timeText;
 - (void)finishGameWhite:(NSString*)white black:(NSString*)black;
 
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 @property (nonatomic, strong) UIPopoverController *managerPopover;
 @property (nonatomic, strong) UIPopoverController *loginPopover;
+@property (nonatomic, strong) UIPopoverController *messagePopover;
+
+@property (nonatomic) BOOL inCommunity;
 
 - (IBAction)loadGame;
 - (IBAction)playOffline;
-- (IBAction)enterCommunity;
-- (IBAction)quitCommunity;
+- (IBAction)enterQuitCommunity:(UIButton*)sender;
 
 @end
 
@@ -63,6 +67,7 @@
 	
 	self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"marble.png"]];
 	
+	community.communityDelegate = self;
 	panel.bInvert = YES;
 	
 	controlButtons.hidden = YES;
@@ -79,6 +84,8 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLoadGame:) 
 												 name:LoadGameNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSendMessage:)
+												 name:SendMessageNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSuccessLogin:)
 												 name:SuccessLoginNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSelectTurn:)
@@ -133,15 +140,26 @@
 			[self handlePlayPreviouse:NULL];
 			break;
 		case PLAY_PREV:
+		{
 			desk.playMode = NOPLAY;
 			[self previouseTurn];
+			// Delay execution of my block for 200 msec
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+				control.selectedSegmentIndex = 2;
+			});
+		}
 			break;
 		case PLAY_STOP:
 			desk.playMode = NOPLAY;
 			break;
 		case PLAY_NEXT:
+		{
 			desk.playMode = NOPLAY;
 			[self nextTurn];
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+				control.selectedSegmentIndex = 2;
+			});
+		}
 			break;
 		case PLAY_FINISH:
 			desk.playMode = PLAY_FORWARD;
@@ -165,62 +183,6 @@
 	} else {
 		TurnRequestIQ *request = [[TurnRequestIQ alloc] initFor:opponent move:@"" gameId:onlineGameId withDraw:YES];
 		[community sendRequest:request];
-	}
-}
-
-- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
-	
-	[popoverController dismissPopoverAnimated:YES];
-	if (popoverController == _managerPopover) {
-		_managerPopover = nil;
-	} else {
-		_loginPopover = nil;
-	}
-	return YES;
-}
-
-- (IBAction)loadGame {
-	
-	if (_managerPopover) {
-		return;
-	}
-	UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:[[GameManager alloc] init] ];
-	_managerPopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
-	_managerPopover.delegate = self;
-	[_managerPopover presentPopoverFromBarButtonItem:loadButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-}
-
-- (void)handleLoadGame:(NSNotification*)note {
-	
-	ChessGame *chessGame = (ChessGame*)note.object;
-
-	try {
-		TurnsArray turns;
-		if ([StorageManager parseTurns:chessGame.turns into:&turns]) {
-			vchess::Game* game = new vchess::Game(turns,
-												  [chessGame.white UTF8String],
-												  [chessGame.black UTF8String]);
-			printf("SUCCESS\n");
-			[_managerPopover dismissPopoverAnimated:YES];
-			_managerPopover = nil;
-			[self startShowGame:game];
-		} else {
-			UIAlertView *alert = [[UIAlertView alloc]
-								  initWithTitle:@"Error"
-								  message:@"Error load game"
-								  delegate:nil
-								  cancelButtonTitle:@"Ok"
-								  otherButtonTitles:nil];
-			[alert show];
-		}
-	} catch (std::exception& e) {
-		UIAlertView *alert = [[UIAlertView alloc]
-							  initWithTitle:@"Error"
-							  message:[NSString stringWithFormat:@"%s", e.what()]
-							  delegate:nil
-							  cancelButtonTitle:@"Ok"
-							  otherButtonTitles:nil];
-		[alert show];
 	}
 }
 
@@ -473,35 +435,6 @@
 
 #pragma mark - Community
 
-- (IBAction)enterCommunity {
-	
-	if (_loginPopover) {
-		return;
-	}
-	UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:[[LoginController alloc] initWithNibName:@"LoginController" bundle:nil] ];
-	_loginPopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
-	_loginPopover.delegate = self;
-	_loginPopover.popoverContentSize = CGSizeMake(260, 240);
-	[_loginPopover presentPopoverFromBarButtonItem:loginButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-}
-
-- (void)handleSuccessLogin:(NSNotification*)note {
-	
-	if (_loginPopover) {
-		[_loginPopover dismissPopoverAnimated:YES];
-	}
-	_loginPopover = nil;
-}
-
-- (IBAction)quitCommunity {
-	
-	if (_loginPopover) {
-		[_loginPopover dismissPopoverAnimated:YES];
-	}
-	_loginPopover = nil;
-	[[NSNotificationCenter defaultCenter] postNotificationName:XMPPDisconnectNotification object:self];
-}
-
 - (void)startOnlineGame {
 	
 	std::string white;
@@ -668,6 +601,145 @@
 	blackTime.text = black;
 	desk.userInteractionEnabled = NO;
 	gameFinishButtons.hidden = YES;
+}
+
+#pragma mark - popover commands
+
+- (IBAction)enterQuitCommunity:(UIButton*)sender {
+	
+	if (_loginPopover) {
+		return;
+	}
+	if (!_inCommunity) {
+		[self performSegueWithIdentifier:@"enterCommunity" sender:sender];
+	} else {
+		[_loginButton setTitle:@"Enter into the Community" forState:UIControlStateNormal];
+		[_loginButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+		_inCommunity = NO;
+		_loginPopover = nil;
+		[[NSNotificationCenter defaultCenter] postNotificationName:XMPPDisconnectNotification object:self];
+	}
+}
+
+- (void)handleSuccessLogin:(NSNotification*)note {
+	
+	if (_loginPopover) {
+		[_loginPopover dismissPopoverAnimated:YES];
+	}
+	[_loginButton setTitle:@"Exit from the Community" forState:UIControlStateNormal];
+	[_loginButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+	_inCommunity = YES;
+	_loginPopover = nil;
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
+	
+	[popoverController dismissPopoverAnimated:YES];
+	if (popoverController == _managerPopover) {
+		_managerPopover = nil;
+	} else if (popoverController == _messagePopover) {
+		_messagePopover = nil;
+	} else {
+		_loginPopover = nil;
+	}
+	return YES;
+}
+
+- (IBAction)loadGame {
+	
+	if (_managerPopover) {
+		return;
+	}
+	[self performSegueWithIdentifier:@"loadGame" sender:nil];
+}
+
+- (void)handleLoadGame:(NSNotification*)note {
+	
+	ChessGame *chessGame = (ChessGame*)note.object;
+	
+	try {
+		TurnsArray turns;
+		if ([StorageManager parseTurns:chessGame.turns into:&turns]) {
+			vchess::Game* game = new vchess::Game(turns,
+												  [chessGame.white UTF8String],
+												  [chessGame.black UTF8String]);
+			printf("SUCCESS\n");
+			[_managerPopover dismissPopoverAnimated:YES];
+			_managerPopover = nil;
+			[self startShowGame:game];
+		} else {
+			UIAlertView *alert = [[UIAlertView alloc]
+								  initWithTitle:@"Error"
+								  message:@"Error load game"
+								  delegate:nil
+								  cancelButtonTitle:@"Ok"
+								  otherButtonTitles:nil];
+			[alert show];
+		}
+	} catch (std::exception& e) {
+		UIAlertView *alert = [[UIAlertView alloc]
+							  initWithTitle:@"Error"
+							  message:[NSString stringWithFormat:@"%s", e.what()]
+							  delegate:nil
+							  cancelButtonTitle:@"Ok"
+							  otherButtonTitles:nil];
+		[alert show];
+	}
+}
+
+- (void)handleSendMessage:(NSNotification*)note {
+	
+	NSDictionary *info = note.userInfo;
+	if (info) {
+		NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+		[body setStringValue:[info valueForKey:@"text"]];
+		
+		NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+		[message addAttributeWithName:@"type" stringValue:@"chat"];
+		[message addAttributeWithName:@"to" stringValue:[info valueForKey:@"address"]];
+		[message addChild:body];
+		
+		[community sendElement:message];
+	}
+	
+	[community deselectRowAtIndexPath:[community indexPathForSelectedRow] animated:YES];
+	[_messagePopover dismissPopoverAnimated:YES];
+}
+
+- (void)messagePopover:(NSIndexPath*)index
+{
+	[self performSegueWithIdentifier:@"sendMessage" sender:index];
+/*
+
+	MessageController *message = [[MessageController alloc] initWithNibName:@"MessageController" bundle:nil];
+	message.address = [[[user primaryResource] jid] full];
+	UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:message];
+	messagePopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
+	messagePopover.popoverContentSize = CGSizeMake(260, 240);
+	messagePopover.delegate = self;
+	[messagePopover presentPopoverFromRect:target.bounds inView:target permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+ */
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([[segue identifier] isEqualToString:@"enterCommunity"]) {
+		_loginPopover = [(UIStoryboardPopoverSegue*)segue popoverController];
+		_loginPopover.delegate = self;
+	} else if ([[segue identifier] isEqualToString:@"loadGame"]) {
+		_managerPopover = [(UIStoryboardPopoverSegue*)segue popoverController];
+		_managerPopover.delegate = self;
+	} else {
+		_messagePopover = [(UIStoryboardPopoverSegue*)segue popoverController];
+		UINavigationController* nav = (UINavigationController*)_messagePopover.contentViewController;
+		MessageController *message = (MessageController*)nav.topViewController;
+		NSIndexPath *index = sender;
+//		UIView* target = [community cellForRowAtIndexPath:index];
+		XMPPUserCoreDataStorageObject *user = [community.fetchedResultsController objectAtIndexPath:index];
+		message.address = [[[user primaryResource] jid] full];
+		
+		_messagePopover.delegate = self;
+	}
 }
 
 @end

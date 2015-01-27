@@ -13,43 +13,21 @@
 
 @synthesize address;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-	
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		UIBarButtonItem *leftButton = [[UIBarButtonItem alloc]
-									   initWithTitle:@"Cancel" 
-									   style:UIBarButtonItemStyleBordered 
-									   target:self
-									   action:@selector(cancel)];
-		self.navigationItem.leftBarButtonItem = leftButton;
-		UIBarButtonItem *rightButton = [[UIBarButtonItem alloc]
-										initWithTitle:@"Send" 
-										style:UIBarButtonItemStyleBordered 
-										target:self
-										action:@selector(send)];
-		self.navigationItem.rightBarButtonItem = rightButton;
-		
-        self.title = @"Message";
-    }
-    return self;
+- (void)viewDidLoad
+{	
+    [super viewDidLoad];
+	_textView.text = @"";
 }
 
-- (void)cancel {
-	
+- (IBAction)cancel:(id)sender
+{
 	[[NSNotificationCenter defaultCenter] postNotificationName:SendMessageNotification object:self userInfo:nil];
 }
 
-- (void)send {
-	
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:address, @"address", ((UITextView*)self.view).text, @"text", nil];
+- (IBAction)send:(id)sender
+{
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:address, @"address", _textView.text, @"text", nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:SendMessageNotification object:self userInfo:info];
-}
-
-- (void)viewDidLoad {
-	
-    [super viewDidLoad];
-	((UITextView*)self.view).text = @"";
 }
 
 @end

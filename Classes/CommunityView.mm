@@ -8,7 +8,6 @@
 
 #import "CommunityView.h"
 #import "RequestIQ.h"
-#import "MessageController.h"
 #import "vChessAppDelegate.h"
 #import "Notifications.h"
 #include "game.h"
@@ -25,11 +24,10 @@
 	self.dataSource = self;
 	self.delegate = self;
 	self.backgroundView = nil;
+	self.backgroundColor = [UIColor clearColor];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleLogin:)
 												 name:LoginNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSendMessage:)
-												 name:SendMessageNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnect:)
 												 name:XMPPConnectNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConnectError:)
@@ -69,7 +67,7 @@
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
-	if (fetchedResultsController == nil)
+	if (_fetchedResultsController == nil)
 	{
 		NSManagedObjectContext *moc = [[self appDelegate] managedObjectContext_roster];
 		
@@ -86,22 +84,22 @@
 		[fetchRequest setSortDescriptors:sortDescriptors];
 		[fetchRequest setFetchBatchSize:10];
 		
-		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+		_fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
 		                                                               managedObjectContext:moc
 		                                                                 sectionNameKeyPath:@"sectionNum"
 		                                                                          cacheName:nil];
-		[fetchedResultsController setDelegate:self];
+		[_fetchedResultsController setDelegate:self];
 		
 		
 		NSError *error = nil;
-		if (![fetchedResultsController performFetch:&error])
+		if (![_fetchedResultsController performFetch:&error])
 		{
 			NSLog(@"Error performing fetch: %@", error);
 		}
 		
 	}
 	
-	return fetchedResultsController;
+	return _fetchedResultsController;
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
@@ -215,57 +213,19 @@
 	return cell;
 }
 
-- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
-	
-	return NO;
-}
-
-- (void)handleSendMessage:(NSNotification*)note {
-	
-	NSDictionary *info = note.userInfo;
-	if (info) {
-		NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
-		[body setStringValue:[info valueForKey:@"text"]];
-		
-		NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
-		[message addAttributeWithName:@"type" stringValue:@"chat"];
-		[message addAttributeWithName:@"to" stringValue:[info valueForKey:@"address"]];
-		[message addChild:body];
-		
-		[self sendElement:message];
-	}
-	
-	[self deselectRowAtIndexPath:[self indexPathForSelectedRow] animated:YES];
-	[messagePopover dismissPopoverAnimated:YES];
-}
-
-- (void)messagePopover:(NSIndexPath*)index {
-	
-	UIView* target = [self cellForRowAtIndexPath:index];
-	XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:index];
-	
-	MessageController *message = [[MessageController alloc] initWithNibName:@"MessageController" bundle:nil];
-	message.address = [[[user primaryResource] jid] full];
-	UINavigationController *rootNav = [[UINavigationController alloc] initWithRootViewController:message];
-	messagePopover = [[UIPopoverController alloc] initWithContentViewController:rootNav];
-	messagePopover.popoverContentSize = CGSizeMake(260, 240);
-	messagePopover.delegate = self;
-	[messagePopover presentPopoverFromRect:target.bounds inView:target permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 
 	NSString *color;
 	NSIndexPath *index = [self indexPathForSelectedRow];
 	switch (buttonIndex) {
-		case 1:
+		case 0:
 			color = @"white";
 			break;
-		case 2:
+		case 1:
 			color = @"black";
 			break;
-		case 3:
-			[self messagePopover:index];
+		case 2:
+			[self.communityDelegate messagePopover:index];
 			return;
 		default:
 			return;
@@ -276,22 +236,20 @@
 	[self deselectRowAtIndexPath:index animated:YES];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-	if ([indexPath indexAtPosition:0] == 0) {
-		UITableViewCell *cell = [self cellForRowAtIndexPath:indexPath];
-		XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-		UIActionSheet *selection = [[UIActionSheet alloc]
-									initWithTitle:[NSString stringWithFormat:@"Send game invitation to %@", [user nickname]]
-									delegate:self
-									cancelButtonTitle:nil
-									destructiveButtonTitle:@"Close"
-									otherButtonTitles:
-									@"I want to play WHITE", 
-									@"I want to play BLACK", 
-									@"Send text message", nil];
-		[selection showFromRect:cell.bounds inView:cell animated:YES];
-	}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	UITableViewCell *cell = [self cellForRowAtIndexPath:indexPath];
+	XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+	UIActionSheet *selection = [[UIActionSheet alloc]
+								initWithTitle:[NSString stringWithFormat:@"Send game invitation to %@", [user displayName]]
+								delegate:self
+								cancelButtonTitle:nil
+								destructiveButtonTitle:nil
+								otherButtonTitles:
+								@"I want to play WHITE",
+								@"I want to play BLACK",
+								@"Send text message", nil];
+	[selection showFromRect:cell.bounds inView:cell animated:YES];
 }
 
 #pragma mark - Notification handlers

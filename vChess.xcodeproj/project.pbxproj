@@ -12,7 +12,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		2899E5220DE3E06400AC0155 /* vChessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* vChessViewController.xib */; };
 		28D7ACF80DDB3853001CB0EB /* vChessViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* vChessViewController.mm */; };
 		2C1B406E16F32201007651D6 /* vChessModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B406C16F32201007651D6 /* vChessModel.xcdatamodeld */; };
 		2C1B407416F32692007651D6 /* StorageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B407316F32692007651D6 /* StorageManager.mm */; };
@@ -121,14 +120,12 @@
 		2CFC44DF16F0F24100CB2E77 /* PGNImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC44DE16F0F24100CB2E77 /* PGNImporter.mm */; };
 		DA22678112B4C54500DAFEE4 /* TurnCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA22678012B4C54500DAFEE4 /* TurnCell.mm */; };
 		DA2A6B261301D8520066BF10 /* MessageController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA2A6B241301D8520066BF10 /* MessageController.mm */; };
-		DA2A6B271301D8520066BF10 /* MessageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA2A6B251301D8520066BF10 /* MessageController.xib */; };
 		DA418E3112F4391400E8181E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA418E3012F4391400E8181E /* CFNetwork.framework */; };
 		DA418E3712F4394C00E8181E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA418E3612F4394C00E8181E /* libxml2.dylib */; };
 		DA418E4812F4398B00E8181E /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA418E4712F4398B00E8181E /* libresolv.dylib */; };
 		DA418E9812F43DCA00E8181E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA418E9712F43DCA00E8181E /* SystemConfiguration.framework */; };
 		DA418EB212F43EBD00E8181E /* CommunityView.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA418EB112F43EBD00E8181E /* CommunityView.mm */; };
 		DA418ECF12F44EE400E8181E /* LoginController.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA418ECE12F44EE400E8181E /* LoginController.mm */; };
-		DA418ED112F44F0800E8181E /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA418ED012F44F0800E8181E /* LoginController.xib */; };
 		DA4DDC2612A26ED90003CB79 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DDC2512A26ED90003CB79 /* libsqlite3.dylib */; };
 		DA4DDC2812A26EEB0003CB79 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4DDC2712A26EEB0003CB79 /* QuartzCore.framework */; };
 		DA4DDC5B12A273A40003CB79 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4DDC5A12A273A40003CB79 /* Background.png */; };
@@ -166,7 +163,6 @@
 		DAD4839512B3A1D200DE4E1F /* TurnView.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAD4839412B3A1D200DE4E1F /* TurnView.mm */; };
 		DAFC8EA012ABA6170039B4B6 /* GameManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAFC8E9E12ABA6170039B4B6 /* GameManager.mm */; };
 		DAFC8EA912ABA6800039B4B6 /* MasterLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAFC8EA812ABA6800039B4B6 /* MasterLoader.mm */; };
-		DAFC8EF812ABB1470039B4B6 /* MasterLoader.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAFC8EF712ABB1470039B4B6 /* MasterLoader.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,7 +172,6 @@
 		1D6058910D05DD3D006BFB54 /* vChess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vChess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E5210DE3E06400AC0155 /* vChessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = vChessViewController.xib; sourceTree = "<group>"; };
 		28D7ACF60DDB3853001CB0EB /* vChessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vChessViewController.h; sourceTree = "<group>"; };
 		28D7ACF70DDB3853001CB0EB /* vChessViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = vChessViewController.mm; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -397,7 +392,6 @@
 		DA22678012B4C54500DAFEE4 /* TurnCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TurnCell.mm; sourceTree = "<group>"; };
 		DA2A6B231301D8520066BF10 /* MessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageController.h; sourceTree = "<group>"; };
 		DA2A6B241301D8520066BF10 /* MessageController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MessageController.mm; sourceTree = "<group>"; };
-		DA2A6B251301D8520066BF10 /* MessageController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MessageController.xib; path = Classes/MessageController.xib; sourceTree = "<group>"; };
 		DA418E3012F4391400E8181E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		DA418E3612F4394C00E8181E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		DA418E4712F4398B00E8181E /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
@@ -406,7 +400,6 @@
 		DA418EB112F43EBD00E8181E /* CommunityView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CommunityView.mm; sourceTree = "<group>"; };
 		DA418ECD12F44EE400E8181E /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		DA418ECE12F44EE400E8181E /* LoginController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoginController.mm; sourceTree = "<group>"; };
-		DA418ED012F44F0800E8181E /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoginController.xib; path = Classes/LoginController.xib; sourceTree = "<group>"; };
 		DA4DDC2512A26ED90003CB79 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		DA4DDC2712A26EEB0003CB79 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DA4DDC5A12A273A40003CB79 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Background.png; path = Images/Background.png; sourceTree = "<group>"; };
@@ -454,7 +447,6 @@
 		DAFC8E9E12ABA6170039B4B6 /* GameManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameManager.mm; sourceTree = "<group>"; };
 		DAFC8EA712ABA6800039B4B6 /* MasterLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterLoader.h; sourceTree = "<group>"; };
 		DAFC8EA812ABA6800039B4B6 /* MasterLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MasterLoader.mm; sourceTree = "<group>"; };
-		DAFC8EF712ABB1470039B4B6 /* MasterLoader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterLoader.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,10 +532,6 @@
 			isa = PBXGroup;
 			children = (
 				2C28D64F1A764D82005714DF /* Main.storyboard */,
-				DAFC8EF712ABB1470039B4B6 /* MasterLoader.xib */,
-				DA418ED012F44F0800E8181E /* LoginController.xib */,
-				DA2A6B251301D8520066BF10 /* MessageController.xib */,
-				2899E5210DE3E06400AC0155 /* vChessViewController.xib */,
 				2C28D64D1A7641C0005714DF /* Images.xcassets */,
 				DA4DDC0512A26D6A0003CB79 /* Images */,
 				2C9A9D19170A0F7700E3C3DC /* Masters.sqlite */,
@@ -1236,7 +1224,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2899E5220DE3E06400AC0155 /* vChessViewController.xib in Resources */,
 				DA4DDC5B12A273A40003CB79 /* Background.png in Resources */,
 				DA4DDC9712A279EE0003CB79 /* BlackB.png in Resources */,
 				DA4DDC9912A279EE0003CB79 /* BlackK.png in Resources */,
@@ -1266,9 +1253,6 @@
 				DA4DDCAF12A279EE0003CB79 /* WhiteP.png in Resources */,
 				DA4DDCB012A279EE0003CB79 /* WhiteQ.png in Resources */,
 				DA4DDCB112A279EE0003CB79 /* WhiteR.png in Resources */,
-				DAFC8EF812ABB1470039B4B6 /* MasterLoader.xib in Resources */,
-				DA418ED112F44F0800E8181E /* LoginController.xib in Resources */,
-				DA2A6B271301D8520066BF10 /* MessageController.xib in Resources */,
 				2CAC00CE16E364C0009EBC0E /* README.txt in Resources */,
 				2CA6E02616E3C1420046E25E /* defaultPerson.png in Resources */,
 				2CAF122A1709920A00029E6B /* packages.plist in Resources */,

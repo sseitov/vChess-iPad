@@ -16,20 +16,19 @@ enum  PROTOCOL {
 
 @implementation LoginController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-	
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		self.title = @"Community";
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleErrorLogin:)
-													 name:ErrorLoginNotification object:nil];
-   }
-    return self;
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
 	
     [super viewDidLoad];
+	
+	self.title = @"Community";
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleErrorLogin:)
+												 name:ErrorLoginNotification object:nil];
 	
 	saveLogin.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"SavedLogin"];
 	if (saveLogin.on) {
@@ -115,23 +114,5 @@ enum  PROTOCOL {
 	[password resignFirstResponder];
 	[self login];
 }
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	
-	if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-		interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-		return YES;
-	} else {
-		return NO;
-	}
-}
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
-
 
 @end

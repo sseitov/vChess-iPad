@@ -12,15 +12,21 @@
 
 @class RequestIQ;
 
+@protocol CommutityDelegate <NSObject>
+
+- (void)messagePopover:(NSIndexPath*)index;
+
+@end
+
 @interface CommunityView : UITableView <UITableViewDataSource, UITableViewDelegate, 
-	UIActionSheetDelegate, UIPopoverControllerDelegate, NSFetchedResultsControllerDelegate>
-{
-	UIPopoverController *messagePopover;
-	
-	NSFetchedResultsController *fetchedResultsController;
+	UIActionSheetDelegate, NSFetchedResultsControllerDelegate>
+{	
 	
 	RequestIQ *answerRequest;
 }
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (weak, nonatomic) id<CommutityDelegate> communityDelegate;
 
 - (id<XMPPUser>)findUserByJID:(XMPPJID*)jid;
 - (void)sendRequest:(RequestIQ*)request;

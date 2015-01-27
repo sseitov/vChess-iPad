@@ -47,11 +47,11 @@ using namespace vchess;
 		[self addSubview:deskImage];
 		
 		whiteLost = [[LostFigures alloc] initWithFrame:CGRectMake(0, WHITE_LOST_Y, SMALL_SIZE, SMALL_SIZE) 
-										image:[UIImage imageNamed:@"WhiteCross.png"]];
+										image:[UIImage imageNamed:@"WhiteCross"]];
 		[self addSubview:whiteLost];
 		
 		blackLost = [[LostFigures alloc] initWithFrame:CGRectMake(0, BLACK_LOST_Y, SMALL_SIZE, SMALL_SIZE)
-										image:[UIImage imageNamed:@"BlackCross.png"]];
+										image:[UIImage imageNamed:@"BlackCross"]];
 		[self addSubview:blackLost];
 		
 		horzRule = [[DeskRule alloc] initHorizontalRule:YES withFrame:CGRectMake(DESK_X_POS, DESK_Y_POS + DESK_SIZE, DESK_SIZE, RULE_SIZE)];

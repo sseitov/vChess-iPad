@@ -17,17 +17,15 @@
 @synthesize mMasterEco;
 @synthesize mPickerView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        [self createEcoCodes];
-		mGames = [[NSMutableArray alloc] init];
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
 	
 	[super viewDidLoad];
+	
+	[self createEcoCodes];
+	mGames = [[NSMutableArray alloc] init];
+	[mPickerView reloadAllComponents];
+	mGameTable.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0);
+
 	if (mMasterEco && [mMasterEco count] > 0) {
 		NSString *eco = [mMasterEco objectAtIndex:0];
 		[mGames removeAllObjects];
@@ -85,7 +83,7 @@
 		label1.textColor = [UIColor brownColor];
 		label1.adjustsFontSizeToFitWidth = true;
 		label1.font = [UIFont fontWithName:@"Verdana-Bold" size:16];
-		label1.textAlignment = UITextAlignmentLeft;
+		label1.textAlignment = NSTextAlignmentLeft;
 		label1.tag = 1;
 		label1.text = code;
 		[view addSubview:label1];
@@ -101,7 +99,7 @@
 			label2.textColor = [UIColor blackColor];
 			label2.adjustsFontSizeToFitWidth = true;
 			label2.font = [UIFont fontWithName:@"Verdana-Bold" size:12];
-			label2.textAlignment = UITextAlignmentCenter;
+			label2.textAlignment = NSTextAlignmentCenter;
 			label2.numberOfLines = 2;
 			label2.tag = 2;
 			label2.text = val;
@@ -676,20 +674,20 @@
 	NSDictionary *game = [mGames objectAtIndex:index];		
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 2, 220, 20)];
 	label.text = [game valueForKey:@"White"];
-	label.textAlignment = UITextAlignmentCenter;
+	label.textAlignment = NSTextAlignmentCenter;
 	label.adjustsFontSizeToFitWidth = true;
 	[cell.contentView addSubview:label];
 	
 	label = [[UILabel alloc] initWithFrame:CGRectMake(5, 21, 220, 20)];
 	label.text = [game valueForKey:@"Black"];
-	label.textAlignment = UITextAlignmentCenter;
+	label.textAlignment = NSTextAlignmentCenter;
 	label.adjustsFontSizeToFitWidth = true;
 	[cell.contentView addSubview:label];
 	
 	label = [[UILabel alloc] initWithFrame:CGRectMake(220, 2, 40, 40)];
 	label.font = [UIFont boldSystemFontOfSize:16];
 	label.text = [game valueForKey:@"Result"];
-	label.textAlignment = UITextAlignmentCenter;
+	label.textAlignment = NSTextAlignmentCenter;
 	label.adjustsFontSizeToFitWidth = true;
 	[cell.contentView addSubview:label];
 }

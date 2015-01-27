@@ -40,9 +40,6 @@ struct TURN_TIME {
 	IBOutlet UIScrollView *gameTable;
 	IBOutlet CommunityView *community;
 	IBOutlet PanelView *panel;
-	IBOutlet UIBarButtonItem *loginButton;
-	IBOutlet UIBarButtonItem *loadButton;
-	IBOutlet UIBarButtonItem *playButton;
 }
 
 - (IBAction)navigate:(UISegmentedControl*)control;

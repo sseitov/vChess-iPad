@@ -26,20 +26,13 @@
 	return [NSURL URLWithString:@"http://vchannel.sourceforge.net/packages"];
 }
 
-- (id)init {
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
 	
-	if (self == [super initWithStyle:UITableViewStyleGrouped]) {
-		self.title = @"Archives";
-		self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editTable)];
-		self.masterPackages = [[NSArray alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"packages" withExtension:@"plist"]];
-	}
-	return self;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editTable)];
+	self.masterPackages = [[NSArray alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"packages" withExtension:@"plist"]];
 }
 
 #pragma mark Table view data source
@@ -61,12 +54,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	static NSString* CellIdentifier = @"PackageCellIdentifier";
-	UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-	}
-	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"masterCell" forIndexPath:indexPath];
 	cell.textLabel.textColor = [UIColor blackColor];
 	cell.textLabel.text = indexPath.section ? [self.masterPackages objectAtIndex:indexPath.row] : [[StorageManager sharedStorageManager].userPackages objectAtIndex:indexPath.row];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -144,7 +132,7 @@
 		return header;
 	}
 }
-
+/*
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	NSString *package = indexPath.section ? [self.masterPackages objectAtIndex:indexPath.row] : [[StorageManager sharedStorageManager].userPackages objectAtIndex:indexPath.row];
@@ -153,6 +141,16 @@
 	manager.mMasterEco = [[StorageManager sharedStorageManager] ecoInPackage:package];
 	[manager.mPickerView reloadAllComponents];
 	[self.navigationController pushViewController:manager animated:YES];
+}
+*/
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+	NSString *package = indexPath.section ? [self.masterPackages objectAtIndex:indexPath.row] : [[StorageManager sharedStorageManager].userPackages objectAtIndex:indexPath.row];
+	MasterLoader *manager = [segue destinationViewController];
+	manager.title = package;
+	manager.mMasterEco = [[StorageManager sharedStorageManager] ecoInPackage:package];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
