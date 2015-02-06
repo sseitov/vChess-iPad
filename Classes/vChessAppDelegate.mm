@@ -65,6 +65,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+/*
 	if (isXmppConnected) {
 		self.bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
 			dispatch_async(dispatch_get_main_queue(), ^()
@@ -93,10 +94,17 @@
 										  });
 					   });
 	}
+ */
+	if (isXmppConnected) {
+		[self goOffline];
+	}
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+	if (isXmppConnected) {
+		[self goOnline];
+	}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
